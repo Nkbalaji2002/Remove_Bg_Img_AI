@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import BgRemovalSteps from "../components/BgRemovalSteps";
 import BgSlider from "../components/BgSlider";
+import Pricing from "../components/Pricing";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
         {/* Background removal slider section */}
         <BgSlider />
         {/* Buy credits plan section */}
+        <Pricing />
         {/* User testimonials section */}
         {/* Try now section */}
       </div>
