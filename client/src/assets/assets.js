@@ -71,7 +71,20 @@ const testimonials = [
   },
 ];
 
-const footerConstants = [];
+const footerConstants = [
+  {
+    url: "https://github.com/",
+    logo: "https://img.icons8.com/fluent/300/github.png",
+  },
+  {
+    url: "http://linkedin.com/in/",
+    logo: "https://img.icons8.com/fluent/300/linkedin-2.png",
+  },
+  {
+    url: "https://www.instagram.com/",
+    logo: "https://img.icons8.com/fluent/300/instagram-new.png",
+  },
+];
 
 export const assets = {
   logo,
