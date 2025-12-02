@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Menubar = () => {
   const [MenuOpen, setMenuOpen] = useState(false);
@@ -9,7 +10,7 @@ const Menubar = () => {
     <>
       <nav className="bg-white px-8 py-4 flex justify-between items-center">
         {/* left side : logo with Text */}
-        <div className="flex items-center space-x-2">
+        <Link to={"/"} className="flex items-center space-x-2">
           <img
             src={assets.logo}
             alt="logo"
@@ -18,7 +19,7 @@ const Menubar = () => {
           <span className="text-2xl font-semibold text-indigo-700 cursor-pointer">
             remove.<span className="text-gray-400 cursor-pointer">bg</span>
           </span>
-        </div>
+        </Link>
 
         {/* Right side : Action Button */}
         <div className="hidden md:flex items-center space-x-4">
