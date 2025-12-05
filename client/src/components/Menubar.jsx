@@ -2,9 +2,28 @@ import React, { useState } from "react";
 import { assets } from "../assets/assets";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  SignedIn,
+  SignedOut,
+  useClerk,
+  UserButton,
+  useUser,
+} from "@clerk/clerk-react";
 
 const Menubar = () => {
   const [MenuOpen, setMenuOpen] = useState(false);
+  const { openSignIn, openSignUp } = useClerk();
+  const { user } = useUser();
+
+  const openRegister = () => {
+    setMenuOpen(false);
+    openSignUp({});
+  };
+
+  const openLogin = () => {
+    setMenuOpen(false);
+    openSignIn();
+  };
 
   return (
     <>
@@ -23,13 +42,42 @@ const Menubar = () => {
 
         {/* Right side : Action Button */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="text-gray-700 hover:text-blue-500 font-medium">
-            Login
-          </button>
+          <SignedOut>
+            <button
+              className="text-gray-700 hover:text-blue-500 font-medium cursor-pointer"
+              onClick={openLogin}
+            >
+              Login
+            </button>
 
-          <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-4 py-2 rounded-full transition cursor-pointer">
-            Sign up
-          </button>
+            <button
+              onClick={openRegister}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-4 py-2 rounded-full transition cursor-pointer"
+            >
+              Sign up
+            </button>
+          </SignedOut>
+          <SignedIn>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <button className="flex items-center gap-2 bg-blue-100 px-4 sm:px-5 py-1.5 sm:py-2.5 rounded-full hover:scale-105 transition-all duration-500 cursor-pointer">
+                <img
+                  src={assets.credits}
+                  alt="Credits"
+                  height={24}
+                  width={24}
+                  className=""
+                />
+                <p className="text-xs sm:text-sm font-medium text-gray-600 ">
+                  Credits: 0
+                </p>
+              </button>
+
+              <p className="text-gray-600 max-sm:hidden">
+                Hi, {user?.fullName}
+              </p>
+            </div>
+            <UserButton />
+          </SignedIn>
         </div>
 
         {/* Mobile Homburger */}

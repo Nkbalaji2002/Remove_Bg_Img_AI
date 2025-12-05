@@ -2,6 +2,7 @@ import logo from "./logo.png";
 import videoBanner from "./home-page-banner.mp4";
 import people from "./people.png";
 import people_org from "./people-org.png";
+import credits from "./dollar.png";
 
 const steps = [
   {
@@ -95,4 +96,5 @@ export const assets = {
   footerConstants,
   people,
   people_org,
+  credits,
 };
