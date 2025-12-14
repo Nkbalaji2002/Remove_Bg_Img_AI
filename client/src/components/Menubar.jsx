@@ -22,12 +22,6 @@ const Menubar = () => {
     openSignUp({});
   };
 
-  const getData = async () => {
-    const token = await getToken();
-    console.log(token);
-    console.log(user.id);
-  };
-
   const openLogin = () => {
     setMenuOpen(false);
     openSignIn();
@@ -79,8 +73,6 @@ const Menubar = () => {
                   Credits: 0
                 </p>
               </button>
-
-              <button onClick={getData}>Get the data</button>
 
               <p className="text-gray-600 max-sm:hidden">
                 Hi, {user?.fullName}

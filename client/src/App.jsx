@@ -4,10 +4,12 @@ import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import UserSyncHandler from "./components/UserSyncHandler";
 
 const App = () => {
   return (
     <>
+      <UserSyncHandler />
       <Menubar />
       <Toaster />
       <Routes>
