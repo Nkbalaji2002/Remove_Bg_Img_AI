@@ -5,6 +5,7 @@ import in.nkdevse.server.entity.UserEntity;
 import in.nkdevse.server.repository.UserRepository;
 import in.nkdevse.server.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -39,6 +40,22 @@ public class UserServiceImpl implements UserService {
         userRepository.save(newUser);
 
         return mapToDto(newUser);
+    }
+
+    @Override
+    public UserDto getUserByClerkId(String clerkId) {
+        UserEntity userEntity = userRepository.findByClerkId(clerkId)
+                .orElseThrow(() -> new UsernameNotFoundException("User with clerkId " + clerkId + " not found"));
+
+        return mapToDto(userEntity);
+    }
+
+    @Override
+    public void deleteUserByClerkId(String clerkId) {
+        UserEntity userEntity = userRepository.findByClerkId(clerkId)
+                .orElseThrow(() -> new UsernameNotFoundException("User with clerkId " + clerkId + " not found"));
+
+        userRepository.delete(userEntity);
     }
 
     private UserDto mapToDto(UserEntity newUser) {

@@ -36,7 +36,7 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         System.out.println("API Hitting ClerkJwtAuthFilter");
 
-        if (request.getRequestURI().contains("api/v1/webhooks")) {
+        if (request.getRequestURI().contains("/webhooks")) {
             filterChain.doFilter(request, response);
             return;
         }
