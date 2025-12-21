@@ -38,7 +38,7 @@ public class ClerkWebHookController {
             boolean isValid = verifyWebhookSignature(svixId, timeStamp, signature, payload);
 
             if (!isValid) {
-                 response = RemoveBgResponse.builder()
+                response = RemoveBgResponse.builder()
                         .statusCode(HttpStatus.UNAUTHORIZED)
                         .data("Invalid webhook signature")
                         .success(false)

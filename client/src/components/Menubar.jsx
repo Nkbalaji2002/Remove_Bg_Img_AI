@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -10,12 +10,14 @@ import {
   UserButton,
   useUser,
 } from "@clerk/clerk-react";
+import { AppContext } from "../context/AppContext";
 
 const Menubar = () => {
   const [MenuOpen, setMenuOpen] = useState(false);
   const { openSignIn, openSignUp } = useClerk();
   const { user } = useUser();
   const { getToken } = useAuth();
+  const { credit } = useContext(AppContext);
 
   const openRegister = () => {
     setMenuOpen(false);
@@ -70,7 +72,7 @@ const Menubar = () => {
                   className=""
                 />
                 <p className="text-xs sm:text-sm font-medium text-gray-600 ">
-                  Credits: 0
+                  Credits: {credit}
                 </p>
               </button>
 

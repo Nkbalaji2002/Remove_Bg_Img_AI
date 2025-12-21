@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
     private UserDto mapToDto(UserEntity newUser) {
         return UserDto.builder()
                 .clerkId(newUser.getClerkId())
+                .credits(newUser.getCredits())
                 .email(newUser.getEmail())
                 .firstName(newUser.getFirstName())
                 .lastName(newUser.getLastName())

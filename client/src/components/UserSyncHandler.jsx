@@ -8,7 +8,7 @@ const UserSyncHandler = () => {
   const { isLoaded, isSignedIn, getToken } = useAuth();
   const { user } = useUser();
   const [synced, setSynced] = useState(false);
-  const { BACKEND_URL } = useContext(AppContext);
+  const { BACKEND_URL, loadUserCredits } = useContext(AppContext);
 
   const saveUser = async () => {
     if (!isLoaded || !isSignedIn || synced) {
@@ -23,6 +23,7 @@ const UserSyncHandler = () => {
         email: user.primaryEmailAddress.emailAddress,
         firstName: user.firstName,
         lastName: user.lastName,
+        photoUrl: user.imageUrl,
       };
 
       const response = await axios.post(`${BACKEND_URL}/users`, userData, {
@@ -36,6 +37,8 @@ const UserSyncHandler = () => {
       }
 
       setSynced(true);
+
+      await loadUserCredits();
     } catch (error) {
       console.error("User sync falled : " + error);
       toast.error("Unable to create account. Please try again");
