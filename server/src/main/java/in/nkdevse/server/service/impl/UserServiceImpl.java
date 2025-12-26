@@ -59,25 +59,15 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDto mapToDto(UserEntity newUser) {
-        return UserDto.builder()
-                .clerkId(newUser.getClerkId())
-                .credits(newUser.getCredits())
-                .email(newUser.getEmail())
-                .firstName(newUser.getFirstName())
-                .lastName(newUser.getLastName())
-                .photoUrl(newUser.getPhotoUrl())
+        return UserDto.builder().clerkId(newUser.getClerkId()).credits(newUser.getCredits()).email(newUser.getEmail())
+                .firstName(newUser.getFirstName()).lastName(newUser.getLastName()).photoUrl(newUser.getPhotoUrl())
                 .build();
     }
 
     private UserEntity mapToEntity(UserDto userDto) {
-        return UserEntity.builder()
-                .clerkId(userDto.getClerkId())
-                .email(userDto.getEmail())
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .photoUrl(userDto.getPhotoUrl())
+        return UserEntity.builder().clerkId(userDto.getClerkId()).email(userDto.getEmail())
+                .firstName(userDto.getFirstName()).lastName(userDto.getLastName()).photoUrl(userDto.getPhotoUrl())
                 .build();
     }
-
 
 }

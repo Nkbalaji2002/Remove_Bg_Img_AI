@@ -25,15 +25,17 @@ import java.util.Collections;
 @Component
 @RequiredArgsConstructor
 public class ClerkJwtAuthFilter extends OncePerRequestFilter {
-    // inject thee clerk.issuer property from application.properties via constructor injection
+    // inject the clerk.issuer property from application.properties via constructor
+    // injection
     @Value("${clerk.issuer}")
     private String clerkIssuer;
 
-    //    JwksProvider dependency is injected via constructor
+    // JwksProvider dependency is injected via constructor
     private final ClerkJwksProvider jwksProvider;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         System.out.println("API Hitting ClerkJwtAuthFilter");
 
         if (request.getRequestURI().contains("/webhooks")) {
@@ -58,10 +60,7 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
             String[] chunks = token.split("\\.");
 
 //            Decode Base64Url the header part to get JSON
-            String headerJson = new String(
-                    Base64.getUrlDecoder().decode(chunks[0]),
-                    StandardCharsets.UTF_8
-            );
+            String headerJson = new String(Base64.getUrlDecoder().decode(chunks[0]), StandardCharsets.UTF_8);
 
 //            Parse JSON header to extract 'kid'
             ObjectMapper mapper = new ObjectMapper();
@@ -72,21 +71,15 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
             PublicKey publicKey = jwksProvider.getPublicKey(kid);
 
 //            parse and validate jwt using the public key and issuer
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(publicKey)
-                    .setAllowedClockSkewSeconds(600)
-                    .requireIssuer(clerkIssuer)
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
+            Claims claims = Jwts.parserBuilder().setSigningKey(publicKey).setAllowedClockSkewSeconds(600)
+                    .requireIssuer(clerkIssuer).build().parseClaimsJws(token).getBody();
 
 //            get the subject user id from claims
             String clerkUserId = claims.getSubject();
 
 //            create authentication token with ROLE_ADMIN authority (adjust roles as needed)
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(clerkUserId,
-                    null,
-                    Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    clerkUserId, null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
 
 //            Set authentication in SecurityContext for downstream security checks
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
@@ -100,7 +93,6 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
             System.out.println("JWT ERROR → " + e.getClass().getName());
             System.out.println("MESSAGE → " + e.getMessage());
         }
-
 
     }
 }

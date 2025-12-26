@@ -29,8 +29,7 @@ public class ClerkWebHookController {
 
     @PostMapping("/clerk")
     public ResponseEntity<?> handleClerkWebhook(@RequestHeader("svix-id") String svixId,
-                                                @RequestHeader("svix-timestamp") String timeStamp,
-                                                @RequestHeader("svix-signature") String signature,
+                                                @RequestHeader("svix-timestamp") String timeStamp, @RequestHeader("svix-signature") String signature,
                                                 @RequestBody String payload) {
         RemoveBgResponse response = null;
 
@@ -38,11 +37,8 @@ public class ClerkWebHookController {
             boolean isValid = verifyWebhookSignature(svixId, timeStamp, signature, payload);
 
             if (!isValid) {
-                response = RemoveBgResponse.builder()
-                        .statusCode(HttpStatus.UNAUTHORIZED)
-                        .data("Invalid webhook signature")
-                        .success(false)
-                        .build();
+                response = RemoveBgResponse.builder().statusCode(HttpStatus.UNAUTHORIZED)
+                        .data("Invalid webhook signature").success(false).build();
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
             }
 
@@ -67,14 +63,10 @@ public class ClerkWebHookController {
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            response = RemoveBgResponse.builder()
-                    .statusCode(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .data("Something went wrong")
-                    .success(false)
-                    .build();
+            response = RemoveBgResponse.builder().statusCode(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .data("Something went wrong").success(false).build();
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(response.toString());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response.toString());
         }
     }
 
@@ -96,12 +88,9 @@ public class ClerkWebHookController {
     }
 
     private void handleUserCreated(JsonNode data) {
-        UserDto newUser = UserDto.builder()
-                .clerkId(data.get("id").asText())
+        UserDto newUser = UserDto.builder().clerkId(data.get("id").asText())
                 .email(data.get("email_addresses").path(0).path("email_address").asText())
-                .firstName(data.get("first_name").asText())
-                .lastName(data.get("last_name").asText())
-                .build();
+                .firstName(data.get("first_name").asText()).lastName(data.get("last_name").asText()).build();
 
         userService.saveUser(newUser);
     }

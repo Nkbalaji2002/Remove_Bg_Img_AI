@@ -22,7 +22,7 @@ public class ClerkJwksProvider {
 
     private final Map<String, PublicKey> keyCache = new HashMap<>();
     private long lastFetchTime = 0;
-    private static final long CACHE_TTL = 3600000;  // 1 hour
+    private static final long CACHE_TTL = 3600000; // 1 hour
 
     public PublicKey getPublicKey(String kid) throws Exception {
         if (keyCache.containsKey(kid) && System.currentTimeMillis() - lastFetchTime < CACHE_TTL) {
