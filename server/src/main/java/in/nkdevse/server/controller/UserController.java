@@ -60,6 +60,11 @@ public class UserController {
 
             String clerkId = authentication.getName();
             UserDto existingUser = userService.getUserByClerkId(clerkId);
+
+            if (existingUser.getCredits() <= 0) {
+                return ResponseEntity.status(HttpStatus.PAYMENT_REQUIRED).build();
+            }
+
             Map<String, Integer> map = new HashMap<>();
             map.put("credits", existingUser.getCredits());
 

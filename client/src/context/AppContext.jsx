@@ -39,6 +39,14 @@ const AppContextProvider = (props) => {
         return openSignIn();
       }
 
+      //  No credits
+      if (credit <= 0) {
+        toast.error(
+          "Your free credits is completed. Upgrade plan to buy pricing!!!"
+        );
+        return;
+      }
+
       setImage(selectedImage);
       setResultImage(false);
 
@@ -49,7 +57,7 @@ const AppContextProvider = (props) => {
       selectedImage && formData.append("file", selectedImage);
 
       const { data: base64Image } = await axios.post(
-        BACKEND_URL + '/images/remove-background',
+        BACKEND_URL + "/images/remove-background",
         formData,
         {
           headers: {
