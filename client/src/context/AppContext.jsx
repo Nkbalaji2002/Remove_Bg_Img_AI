@@ -41,6 +41,7 @@ const AppContextProvider = (props) => {
 
       //  No credits
       if (credit <= 0) {
+        setCredit(credit);
         toast.error(
           "Your free credits is completed. Upgrade plan to buy pricing!!!"
         );
