@@ -26,8 +26,8 @@ const AppContextProvider = (props) => {
       if (response.data.success) {
         setCredit(response.data.data.credits);
       } else {
-        setCredit(response.data.data.credits);
         toast.error(response.data.data);
+        setCredit(0);
       }
     } catch (error) {
       toast.error("Error loading credits...." + error.message);
