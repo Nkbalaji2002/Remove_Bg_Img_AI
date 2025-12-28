@@ -26,6 +26,7 @@ const AppContextProvider = (props) => {
       if (response.data.success) {
         setCredit(response.data.data.credits);
       } else {
+        setCredit(response.data.data.credits);
         toast.error(response.data.data);
       }
     } catch (error) {
@@ -41,7 +42,6 @@ const AppContextProvider = (props) => {
 
       //  No credits
       if (credit <= 0) {
-        setCredit(credit);
         toast.error(
           "Your free credits is completed. Upgrade plan to buy pricing!!!"
         );
