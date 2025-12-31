@@ -72,7 +72,7 @@ const Menubar = () => {
                   className=""
                 />
                 <p className="text-xs sm:text-sm font-medium text-gray-600 ">
-                  Credits: {credit}
+                  Credits: {credit > 0 ? credit : 0}
                 </p>
               </button>
 
